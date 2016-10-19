@@ -32,7 +32,7 @@ function install_postgres_ext_postgis() {
 }
 
 function install_postgres() {
-    POSTGRES_VERSION=9.5
+    POSTGRES_VERSION=9.3
 
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 

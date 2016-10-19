@@ -49,6 +49,20 @@ function install_elasticsearch() {
     sudo sed -i 's/sysctl -q -w vm.max_map_count=$MAX_MAP_COUNT/true/' /etc/init.d/elasticsearch
 }
 
+function install_elasticsearch2() {
+    local CONFIG_FILE=/etc/elasticsearch/elasticsearch.yml
+
+    pushd tmp
+    wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/2.3.5/elasticsearch-2.3.5.deb
+    dpkg -i elasticsearch-2.3.5.deb
+    popd
+
+    echo 'index.number_of_shards: 1' >> $CONFIG_FILE
+    echo 'index.number_of_replicas: 0' >> $CONFIG_FILE
+    # Because Getting Permission Denied error
+    sudo sed -i 's/sysctl -q -w vm.max_map_count=$MAX_MAP_COUNT/true/' /etc/init.d/elasticsearch
+}
+
 function install_cassandra() {
     local VERSION=34
     echo "deb http://www.apache.org/dist/cassandra/debian ${VERSION}x main" | sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list

@@ -15,3 +15,7 @@ function install_qt() {
     apt-get update
     apt-get install qt55base qt55webkit
 }
+
+function install_qt4() {
+    apt-get -y install libqt4-dev libqtwebkit-dev
+}
