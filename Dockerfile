@@ -28,6 +28,8 @@ RUN circleci-install oraclejdk8
 ADD circleci-provision-scripts/misc.sh /opt/circleci-provision-scripts/misc.sh
 #RUN for package in sysadmin devtools jq redis memcached rabbitmq neo4j elasticsearch beanstalkd cassandra riak couchdb; do circleci-install $package; done
 RUN for package in sysadmin devtools redis elasticsearch2; do circleci-install $package; done
+RUN start redis-server
+RUN service elasticsearch status || service elasticsearch start
 
 # Dislabe services by default
 #RUN for s in apache2 memcached rabbitmq-server neo4j neo4j-service elasticsearch beanstalkd cassandra riak couchdb; do sysv-rc-conf $s off; done
@@ -99,6 +101,7 @@ ADD circleci-provision-scripts/nodejs.sh /opt/circleci-provision-scripts/nodejs.
 #RUN circleci-install nodejs 5.7.0
 RUN circleci-install nodejs 6.1.0
 RUN sudo -H -i -u ubuntu nvm alias default 6.1.0
+RUN sudo -H -i -u ubuntu npm install -g check-dependencies
 
 #ADD circleci-provision-scripts/go.sh /opt/circleci-provision-scripts/go.sh
 #RUN circleci-install golang 1.6.2
@@ -111,6 +114,7 @@ RUN circleci-install ruby 2.1.8
 #RUN circleci-install ruby 2.3.0
 #RUN circleci-install ruby 2.3.1
 RUN sudo -H -i -u ubuntu rvm use 2.1.8 --default
+RUN sudo -H -i -u ubuntu gem uninstall bundler && sudo -H -i -u ubuntu gem install bundler -v '1.12.5'
 
 #ADD circleci-provision-scripts/php.sh /opt/circleci-provision-scripts/php.sh
 #RUN circleci-install php 5.5.31
