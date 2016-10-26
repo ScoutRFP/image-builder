@@ -113,8 +113,8 @@ RUN circleci-install ruby 2.1.8
 #RUN circleci-install ruby 2.2.5
 #RUN circleci-install ruby 2.3.0
 #RUN circleci-install ruby 2.3.1
-RUN sudo -H -i -u ubuntu rvm use 2.1.8 --default
-RUN sudo -H -i -u ubuntu gem uninstall bundler && sudo -H -i -u ubuntu gem install bundler -v '1.12.5'
+ADD scripts/scoutrfp-gems.sh /opt/circleci-provision-scripts/scoutrfp-gems.sh
+RUN /opt/circleci-provision-scripts/scoutrfp-gems.sh
 
 #ADD circleci-provision-scripts/php.sh /opt/circleci-provision-scripts/php.sh
 #RUN circleci-install php 5.5.31
