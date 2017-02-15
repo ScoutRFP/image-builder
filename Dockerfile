@@ -84,7 +84,7 @@ RUN circleci-install python 2.7.11
 #RUN circleci-install python pypy-4.0.1
 RUN sudo -H -i -u ubuntu pyenv global 2.7.11
 
-ADD circleci-provision-scripts/nodejs.sh /opt/circleci-provision-scripts/nodejs.sh
+#ADD circleci-provision-scripts/nodejs.sh /opt/circleci-provision-scripts/nodejs.sh
 #RUN circleci-install nodejs 0.12.9
 #RUN circleci-install nodejs 4.0.0
 #RUN circleci-install nodejs 4.1.2
@@ -99,11 +99,19 @@ ADD circleci-provision-scripts/nodejs.sh /opt/circleci-provision-scripts/nodejs.
 #RUN circleci-install nodejs 5.5.0
 #RUN circleci-install nodejs 5.6.0
 #RUN circleci-install nodejs 5.7.0
-RUN circleci-install nodejs 6.1.0
-RUN sudo -H -i -u ubuntu nvm install 6.9.4
-RUN sudo -H -i -u ubuntu nvm use 6.9.4
-RUN sudo -H -i -u ubuntu nvm alias default 6.9.4
-RUN sudo -H -i -u ubuntu npm install -g check-dependencies
+# RUN circleci-install nodejs 6.1.0
+# RUN sudo -H -i -u ubuntu nvm install 6.9.4
+# RUN sudo -H -i -u ubuntu nvm use 6.9.4
+# RUN sudo -H -i -u ubuntu nvm alias default 6.9.4
+# RUN sudo -H -i -u ubuntu npm install -g check-dependencies
+
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+RUN sudo apt-get install -y nodejs
+# installs npm latest (4.2.0 atm), because 3.10.10 => 3.10.5 downgrade fails
+RUN curl -sL https://www.npmjs.org/install.sh | sudo -E bash -
+# now safe to downgrade
+RUN sudo npm install npm@3.10.5 -g
+RUN sudo npm install -g check-dependencies
 
 #ADD circleci-provision-scripts/go.sh /opt/circleci-provision-scripts/go.sh
 #RUN circleci-install golang 1.6.2
