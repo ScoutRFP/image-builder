@@ -103,7 +103,6 @@ RUN circleci-install nodejs 6.1.0
 RUN sudo -H -i -u ubuntu nvm install 6.9.4
 RUN sudo -H -i -u ubuntu nvm use 6.9.4
 RUN sudo -H -i -u ubuntu nvm alias default 6.9.4
-RUN sudo -H -i -u ubuntu npm install -g check-dependencies
 
 #ADD circleci-provision-scripts/go.sh /opt/circleci-provision-scripts/go.sh
 #RUN circleci-install golang 1.6.2
