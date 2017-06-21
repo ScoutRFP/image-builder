@@ -99,10 +99,11 @@ ADD circleci-provision-scripts/nodejs.sh /opt/circleci-provision-scripts/nodejs.
 #RUN circleci-install nodejs 5.5.0
 #RUN circleci-install nodejs 5.6.0
 #RUN circleci-install nodejs 5.7.0
-RUN circleci-install nodejs 6.1.0
-RUN sudo -H -i -u ubuntu nvm install 6.9.4
-RUN sudo -H -i -u ubuntu nvm use 6.9.4
-RUN sudo -H -i -u ubuntu nvm alias default 6.9.4
+#RUN circleci-install nodejs 6.1.0
+RUN circleci-install nodejs 8.1.0
+RUN sudo -H -i -u ubuntu nvm install 8.1.0
+RUN sudo -H -i -u ubuntu nvm use 8.1.0
+RUN sudo -H -i -u ubuntu nvm alias default 8.1.0
 
 #ADD circleci-provision-scripts/go.sh /opt/circleci-provision-scripts/go.sh
 #RUN circleci-install golang 1.6.2
