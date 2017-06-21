@@ -38,6 +38,16 @@ function patch_nvm() {
     sed -i 's|\(s#^$NVM_DIR/##;\)|\1\ns#^\$CIRCLECI_PKG_DIR/nodejs/##;|' $CIRCLECI_PKG_DIR/.nvm/nvm.sh
 }
 
+function install_yarn() {
+    local version=$1
+
+    (cat <<EOF
+source ~/.circlerc
+curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $version
+EOF
+    ) | as_user version=$version bash
+}
+
 function install_nodejs_version_nvm() {
     NODEJS_VERSION=$1
     (cat <<'EOF'
@@ -69,7 +79,7 @@ function install_nodejs_version_precompile() {
 
     maybe_run_apt_update
     apt-get install circleci-nodejs-$NODEJS_VERSION
-    chown -R $CIRCLECI_USER:$CIRCLECI_USER $CIRCLECI_PKG_DIR/nodejs
+    chown -R $CIRCLECI_USER:$CIRCLECI_USER $CIRCLECI_PKG_DIR/nodejs/v$NODEJS_VERSION
     set_nodejs_default $NODEJS_VERSION
 }
 
